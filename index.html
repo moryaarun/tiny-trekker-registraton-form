@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny Trekking – Explorer Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #2d5a27;
+  --moss: #4a7c3f;
+  --gold: #c9962a;
+  --cream: #faf6ef;
+  --sand: #f0e6d3;
+  --earth: #8b5e3c;
+  --ink: #1e2a1e;
+  --error: #d63030;
+  --success: #2d8a3e;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #1a2e1a;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(74,124,63,0.2), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(45,90,39,0.25), transparent 55%);
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  padding: 32px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+  animation: fadeDown 0.6s ease both;
+}
+.header-brand {
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px; color: var(--sand); letter-spacing: 1px; margin-bottom: 4px;
+}
+.header-brand span { color: var(--gold); }
+.header-tagline {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 12px; color: rgba(240,230,211,0.45); letter-spacing: 1px;
+}
+.header-emblem {
+  width: 64px; height: 64px;
+  background: radial-gradient(circle at 40% 35%, #e8b84b, #a07020);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 14px;
+  box-shadow: 0 0 0 4px rgba(201,150,42,0.3), 0 8px 24px rgba(0,0,0,0.3);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(201,150,42,0.3), 0 8px 24px rgba(0,0,0,0.3); }
+  50%      { box-shadow: 0 0 0 8px rgba(201,150,42,0.15), 0 8px 28px rgba(0,0,0,0.35); }
+}
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* CARD */
+.card {
+  width: 100%; max-width: 520px;
+  background: var(--cream);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 24px 56px rgba(0,0,0,0.25);
+  animation: riseUp 0.6s ease 0.1s both;
+}
+@keyframes riseUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* CARD HEADER BAND */
+.card-band {
+  background: linear-gradient(135deg, var(--forest), #3a7030, var(--forest));
+  padding: 18px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-band-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 16px; color: var(--sand); letter-spacing: 1px;
+}
+.card-band-sub {
+  font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(240,230,211,0.45); margin-top: 2px;
+}
+.card-band-icon { font-size: 26px; }
+
+/* SECTION */
+.form-section {
+  padding: 22px 28px;
+  border-bottom: 1px solid rgba(139,94,60,0.12);
+}
+.section-label {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 13px; color: var(--forest);
+  letter-spacing: 0.5px; margin-bottom: 16px;
+}
+.section-label-icon { font-size: 16px; }
+
+/* FIELD */
+.field-group { margin-bottom: 16px; }
+.field-label {
+  display: block;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--earth);
+  margin-bottom: 6px;
+}
+.required-star { color: var(--error); margin-left: 2px; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid rgba(139,94,60,0.25);
+  border-radius: 10px;
+  background: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px; color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, select:focus {
+  border-color: var(--moss);
+  box-shadow: 0 0 0 3px rgba(74,124,63,0.12);
+}
+input::placeholder { color: rgba(30,42,30,0.3); font-size: 12px; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 420px) { .field-row { grid-template-columns: 1fr; } }
+
+/* TREK SELECTION */
+.trek-options {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.trek-opt {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 10px;
+  border: 1.5px solid rgba(139,94,60,0.18);
+  cursor: pointer; transition: all 0.15s;
+  background: white;
+}
+.trek-opt:hover { border-color: var(--moss); background: rgba(74,124,63,0.04); }
+.trek-opt input[type="radio"] { accent-color: var(--forest); width: 16px; height: 16px; flex-shrink: 0; }
+.trek-opt-label { flex: 1; }
+.trek-opt-name { font-size: 12.5px; font-weight: 700; color: var(--ink); }
+.trek-opt-meta { font-size: 10px; color: rgba(30,42,30,0.45); margin-top: 1px; }
+.trek-opt-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px;
+  border-radius: 10px; text-transform: uppercase;
+}
+.badge-easy   { background: rgba(61,181,74,0.1);  color: #2d7a2d; border: 1px solid rgba(61,181,74,0.2); }
+.badge-mod    { background: rgba(240,165,0,0.1);  color: #a07020; border: 1px solid rgba(240,165,0,0.2); }
+.badge-hard   { background: rgba(224,92,42,0.1);  color: #c04020; border: 1px solid rgba(224,92,42,0.2); }
+
+/* HOW DID YOU HEAR */
+.radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.radio-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 20px;
+  border: 1.5px solid rgba(139,94,60,0.2);
+  background: white; cursor: pointer; font-size: 11.5px;
+  color: var(--ink); font-weight: 600; transition: all 0.15s;
+}
+.radio-chip:hover { border-color: var(--moss); background: rgba(74,124,63,0.05); }
+.radio-chip input { accent-color: var(--forest); }
+
+/* CONSENT */
+.consent-box {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px; border-radius: 10px;
+  background: rgba(45,90,39,0.05); border: 1px solid rgba(45,90,39,0.15);
+  margin-bottom: 10px;
+}
+.consent-box input[type="checkbox"] { accent-color: var(--forest); width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+.consent-text { font-size: 11.5px; color: rgba(30,42,30,0.7); line-height: 1.55; }
+.consent-text strong { color: var(--forest); }
+
+/* PAYMENT SECTION */
+.payment-section {
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(201,150,42,0.08), rgba(45,90,39,0.06));
+  border-top: 2px solid rgba(201,150,42,0.25);
+}
+.payment-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 15px; color: var(--earth); letter-spacing: 0.5px; margin-bottom: 4px;
+}
+.payment-sub {
+  font-size: 11px; color: rgba(30,42,30,0.5); margin-bottom: 18px; line-height: 1.5;
+}
+.payment-cards { display: flex; flex-direction: column; gap: 12px; }
+.payment-card {
+  background: white; border-radius: 12px;
+  border: 1.5px solid rgba(139,94,60,0.2);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.payment-card-icon { font-size: 28px; flex-shrink: 0; }
+.payment-card-info { flex: 1; }
+.payment-card-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 2px; }
+.payment-card-upi  { font-size: 12px; font-weight: 600; color: var(--moss); font-family: monospace; letter-spacing: 0.5px; }
+.payment-card-note { font-size: 10px; color: rgba(30,42,30,0.45); margin-top: 3px; }
+.payment-btn {
+  padding: 8px 16px; border-radius: 20px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 11px; letter-spacing: 1px;
+  border: none; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.gpay-btn { background: #1a73e8; color: white; }
+.gpay-btn:hover { background: #1557b0; transform: translateY(-1px); }
+.copy-btn { background: rgba(45,90,39,0.1); color: var(--forest); border: 1px solid rgba(45,90,39,0.25); }
+.copy-btn:hover { background: rgba(45,90,39,0.2); }
+
+.amount-box {
+  display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.amount-item {
+  flex: 1; min-width: 120px;
+  background: white; border-radius: 10px;
+  border: 1px solid rgba(139,94,60,0.15);
+  padding: 10px 14px; text-align: center;
+}
+.amount-label { font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--earth); opacity: 0.65; margin-bottom: 3px; font-weight: 700; }
+.amount-val { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--forest); }
+.amount-note { font-size: 9px; color: rgba(30,42,30,0.4); margin-top: 1px; }
+
+.payment-note {
+  margin-top: 14px; padding: 10px 14px;
+  background: rgba(201,150,42,0.08); border-radius: 8px;
+  border-left: 3px solid var(--gold);
+  font-size: 11px; color: rgba(30,42,30,0.65); line-height: 1.55;
+}
+.payment-note strong { color: var(--earth); }
+
+/* SUBMIT */
+.submit-section { padding: 20px 28px 24px; }
+.submit-btn {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, var(--forest), #3a7030);
+  color: var(--sand);
+  border: none; border-radius: 12px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 16px; letter-spacing: 2px;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 18px rgba(45,90,39,0.35);
+}
+.submit-btn:hover { background: linear-gradient(135deg, #3a7030, var(--moss)); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(45,90,39,0.45); }
+.submit-note {
+  text-align: center; margin-top: 10px;
+  font-size: 10.5px; color: rgba(30,42,30,0.4);
+  line-height: 1.6;
+}
+
+/* SUCCESS SCREEN */
+.success-screen {
+  display: none;
+  text-align: center; padding: 48px 28px;
+}
+.success-icon { font-size: 64px; margin-bottom: 16px; }
+.success-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 26px; color: var(--forest); margin-bottom: 8px;
+}
+.success-msg { font-size: 13px; color: rgba(30,42,30,0.6); line-height: 1.7; margin-bottom: 24px; }
+.success-steps { display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 20px; }
+.success-step {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: rgba(45,90,39,0.06); border-radius: 8px;
+  padding: 10px 12px; font-size: 12px; color: rgba(30,42,30,0.7); line-height: 1.5;
+}
+.step-bullet {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--forest); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; flex-shrink: 0;
+}
+
+/* GOOGLE FORM GUIDE */
+.gform-guide {
+  width: 100%; max-width: 520px; margin-top: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 20px 24px;
+  animation: riseUp 0.6s ease 0.2s both;
+}
+.gform-title {
+  font-family: 'Fredoka One', cursive; font-size: 14px;
+  color: var(--gold); letter-spacing: 1px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.gform-step {
+  display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
+}
+.gform-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(201,150,42,0.2); border: 1px solid rgba(201,150,42,0.35);
+  color: var(--gold); font-size: 10px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.gform-text { font-size: 11.5px; color: rgba(240,230,211,0.6); line-height: 1.6; }
+.gform-text strong { color: rgba(240,230,211,0.9); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-emblem">🏔️</div>
+  <div class="header-brand">🌿 Tiny <span>Trekking</span></div>
+  <div class="header-tagline">Where Little Feet Explore Big Mountains · Pune</div>
+</div>
+
+<!-- FORM CARD -->
+<div class="card" id="formCard">
+
+  <!-- BAND -->
+  <div class="card-band">
+    <div>
+      <div class="card-band-title">Explorer Registration Form</div>
+      <div class="card-band-sub">Junior Explorer Programme · 2025</div>
+    </div>
+    <div class="card-band-icon">📋</div>
+  </div>
+
+  <form id="regForm" novalidate>
+
+    <!-- SECTION 1: CHILD DETAILS -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-label-icon">🧒</span> Child's Details
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Child's Full Name <span class="required-star">*</span></label>
+        <input type="text" name="kidName" placeholder="e.g. Aarav Sharma" required />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Age <span class="required-star">*</span></label>
+          <input type="text" name="kidAge" placeholder="e.g. 8 years" required />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Grade / Class</label>
+          <input type="text" name="kidGrade" placeholder="e.g. Class 3" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">School Name <span class="required-star">*</span></label>
+        <input type="text" name="schoolName" placeholder="e.g. Delhi Public School, Pune" required />
+      </div>
+    </div>
+
+    <!-- SECTION 2: PARENT / GUARDIAN -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-label-icon">👨‍👩‍👦</span> Parent / Guardian Details
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Parent / Guardian Full Name <span class="required-star">*</span></label>
+        <input type="text" name="parentName" placeholder="e.g. Priya Sharma" required />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Phone Number <span class="required-star">*</span></label>
+          <input type="tel" name="phone" placeholder="e.g. 98765 43210" required />
+        </div>
+        <div class="field-group">
+          <label class="field-label">WhatsApp Number</label>
+          <input type="tel" name="whatsapp" placeholder="If different" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Email Address <span class="required-star">*</span></label>
+        <input type="email" name="email" placeholder="e.g. priya@gmail.com" required />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Residential Area / Society</label>
+        <input type="text" name="area" placeholder="e.g. Baner, Kothrud, Wakad..." />
+      </div>
+    </div>
+
+    <!-- SECTION 3: TREK SELECTION -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-label-icon">⛰️</span> Trek Selection
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Trek <span class="required-star">*</span></label>
+        <div class="trek-options">
+          <label class="trek-opt" style="border-color:var(--moss); background:rgba(74,124,63,0.06);">
+            <input type="radio" name="trek" value="vetal" required checked />
+            <div class="trek-opt-label">
+              <div class="trek-opt-name">🌳 Vetal Tekdi — Introductory Trek</div>
+              <div class="trek-opt-meta">Within Pune · 1–1.5 hrs · All ages · Perfect first trek</div>
+            </div>
+            <span class="trek-opt-badge badge-easy">Easy</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: MEDICAL -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-label-icon">🩺</span> Health & Safety
+      </div>
+      <div class="field-group">
+        <label class="field-label">Any Medical Conditions / Allergies</label>
+        <input type="text" name="medical" placeholder="e.g. Asthma, nut allergy — or type None" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">How did you hear about us?</label>
+        <div class="radio-group">
+          <label class="radio-chip"><input type="radio" name="source" value="school" /> 🏫 School</label>
+          <label class="radio-chip"><input type="radio" name="source" value="instagram" /> 📱 Instagram</label>
+          <label class="radio-chip"><input type="radio" name="source" value="whatsapp" /> 💬 WhatsApp</label>
+          <label class="radio-chip"><input type="radio" name="source" value="friend" /> 👫 Friend / Family</label>
+          <label class="radio-chip"><input type="radio" name="source" value="other" /> ✨ Other</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: CONSENT -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-label-icon">✍️</span> Consent & Agreement
+      </div>
+      <div class="consent-box">
+        <input type="checkbox" id="consent1" required />
+        <label class="consent-text" for="consent1">I confirm that my child is <strong>medically fit to participate</strong> in trekking activities and I have disclosed all relevant health conditions above.</label>
+      </div>
+      <div class="consent-box">
+        <input type="checkbox" id="consent2" required />
+        <label class="consent-text" for="consent2">I agree to <strong>Tiny Trekking's safety guidelines</strong> and understand that the child must follow guide instructions at all times.</label>
+      </div>
+      <div class="consent-box">
+        <input type="checkbox" id="consent3" />
+        <label class="consent-text" for="consent3">I give permission for <strong>photos/videos</strong> of my child taken during treks to be shared on Tiny Trekking's social media for promotional purposes.</label>
+      </div>
+    </div>
+
+    <!-- PAYMENT SECTION -->
+    <div class="payment-section">
+      <div class="payment-title">💳 Registration Fee & Payment</div>
+      <div class="payment-sub">Please complete your payment after submitting this form. Send a screenshot of your payment to our WhatsApp number to confirm your booking.</div>
+
+      <div class="amount-box">
+        <div class="amount-item" style="flex:1; border:1.5px solid rgba(201,150,42,0.35); background:rgba(201,150,42,0.06);">
+          <div class="amount-label">Booking Amount</div>
+          <div class="amount-val" style="font-size:28px;">₹699</div>
+          <div class="amount-note">per child · Vetal Tekdi Trek · includes guide & snack</div>
+        </div>
+      </div>
+
+      <div class="payment-cards">
+        <div class="payment-card">
+          <div class="payment-card-icon">🟢</div>
+          <div class="payment-card-info">
+            <div class="payment-card-name">Google Pay / GPay</div>
+            <!-- REPLACE the UPI ID below with your actual GPay UPI ID -->
+            <div class="payment-card-upi">your-upi-id@okaxis</div>
+            <div class="payment-card-note">Scan QR or pay directly via GPay app</div>
+          </div>
+          <!-- REPLACE href below with your actual GPay / UPI deep link -->
+          <a href="upi://pay?pa=your-upi-id@okaxis&pn=TinyTrekking&cu=INR" class="payment-btn gpay-btn">Pay Now</a>
+        </div>
+        <div class="payment-card">
+          <div class="payment-card-icon">🔵</div>
+          <div class="payment-card-info">
+            <div class="payment-card-name">PhonePe / Paytm / Any UPI</div>
+            <div class="payment-card-upi">your-upi-id@okaxis</div>
+            <div class="payment-card-note">Works with any UPI app</div>
+          </div>
+          <button type="button" class="payment-btn copy-btn" onclick="copyUPI()">Copy UPI</button>
+        </div>
+      </div>
+
+      <div class="payment-note">
+        <strong>📸 Important:</strong> After payment, please WhatsApp the payment screenshot to <strong>+91 XXXXX XXXXX</strong> with your child's name and selected trek. Your registration is confirmed only after payment verification.
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-section">
+      <button type="submit" class="submit-btn">🌿 &nbsp; Submit Registration</button>
+      <div class="submit-note">
+        We will confirm your booking via WhatsApp within 24 hours.<br>
+        Questions? Contact us at <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d3cec9ded3d5c2cccccec9c0e7c0cac6cecb89c4c8ca">[email&#160;protected]</a></strong>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">You're Registered!</div>
+    <div class="success-msg">Welcome to Tiny Trekking! Your little explorer's adventure starts now. Here's what happens next:</div>
+    <div class="success-steps">
+      <div class="success-step">
+        <div class="step-bullet">1</div>
+        <div>Complete the <strong>payment</strong> using the GPay / UPI details above and send the screenshot to our WhatsApp.</div>
+      </div>
+      <div class="success-step">
+        <div class="step-bullet">2</div>
+        <div>We'll <strong>confirm your booking</strong> via WhatsApp within 24 hours.</div>
+      </div>
+      <div class="success-step">
+        <div class="step-bullet">3</div>
+        <div>Your child will receive their <strong>Trek Passport</strong> on the first day!</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:rgba(30,42,30,0.5);">🌿 See you on the trail!</div>
+  </div>
+
+</div>
+
+<!-- GOOGLE FORM SETUP GUIDE -->
+<div class="gform-guide">
+  <div class="gform-title">📋 How to Set Up Your Google Form (5 min guide)</div>
+  <div class="gform-step"><div class="gform-num">1</div><div class="gform-text">Go to <strong>forms.google.com</strong> → click <strong>"Blank"</strong> to start a new form.</div></div>
+  <div class="gform-step"><div class="gform-num">2</div><div class="gform-text">Set title: <strong>"Tiny Trekking – Explorer Registration"</strong>. Add your tagline as description.</div></div>
+  <div class="gform-step"><div class="gform-num">3</div><div class="gform-text">Add fields: <strong>Child's Name</strong> (Short answer, Required) → <strong>Age</strong> → <strong>School Name</strong> → <strong>Parent Name</strong> → <strong>Phone Number</strong> → <strong>Email</strong> → <strong>Trek Selection</strong> (Multiple choice) → <strong>Medical Info</strong> → <strong>How did you hear us?</strong></div></div>
+  <div class="gform-step"><div class="gform-num">4</div><div class="gform-text">At the end, add a <strong>Description block</strong> (not a question) with your GPay UPI ID, amount, and instruction to send screenshot to WhatsApp.</div></div>
+  <div class="gform-step"><div class="gform-num">5</div><div class="gform-text">Go to <strong>Settings → Presentation → Confirmation message</strong> and paste your payment instructions there too.</div></div>
+  <div class="gform-step"><div class="gform-num">6</div><div class="gform-text">Click <strong>Send → Link icon → Copy link</strong>. Share this link on WhatsApp groups, Instagram bio, and school notice boards!</div></div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Form submit
+document.getElementById('regForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const required = this.querySelectorAll('[required]');
+  let valid = true;
+  required.forEach(f => {
+    if ((f.type === 'checkbox' && !f.checked) || (f.type !== 'checkbox' && !f.value.trim())) {
+      f.style.borderColor = '#d63030';
+      f.style.boxShadow = '0 0 0 3px rgba(214,48,48,0.12)';
+      valid = false;
+    } else {
+      f.style.borderColor = '';
+      f.style.boxShadow = '';
+    }
+  });
+  if (!valid) {
+    alert('Please fill in all required fields marked with ★');
+    return;
+  }
+  // Show success
+  this.style.display = 'none';
+  document.getElementById('successScreen').style.display = 'block';
+  window.scr
