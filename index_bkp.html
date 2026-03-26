@@ -484,43 +484,21 @@ input::placeholder { color: rgba(30,42,30,0.3); font-size: 12px; }
             <div class="payment-card-note">Scan QR or pay directly via GPay app</div>
           </div>
           <!-- REPLACE href below with your actual GPay / UPI deep link -->
-          <a href="upi://pay?pa=your-upi-id@okaxis&pn=TinyTrekking&cu=INR&am=699" class="payment-btn gpay-btn">Pay ₹699</a>
+          <a href="upi://pay?pa=your-upi-id@okaxis&pn=TinyTrekking&cu=INR" class="payment-btn gpay-btn">Pay Now</a>
+        </div>
+        <div class="payment-card">
+          <div class="payment-card-icon">🔵</div>
+          <div class="payment-card-info">
+            <div class="payment-card-name">PhonePe / Paytm / Any UPI</div>
+            <div class="payment-card-upi">your-upi-id@okaxis</div>
+            <div class="payment-card-note">Works with any UPI app</div>
+          </div>
+          <button type="button" class="payment-btn copy-btn" onclick="copyUPI()">Copy UPI</button>
         </div>
       </div>
 
       <div class="payment-note">
         <strong>📸 Important:</strong> After payment, please WhatsApp the payment screenshot to <strong>+91 XXXXX XXXXX</strong> with your child's name and selected trek. Your registration is confirmed only after payment verification.
-      </div>
-
-      <!-- WHATSAPP GROUP -->
-      <div style="margin-top:14px; background:rgba(37,211,102,0.07); border:1.5px solid rgba(37,211,102,0.25); border-radius:12px; padding:16px 16px 14px;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-          <span style="font-size:22px;">💬</span>
-          <div>
-            <div style="font-family:'Fredoka One',cursive; font-size:13px; color:#1a7a3a; letter-spacing:0.5px;">Join Our WhatsApp Group</div>
-            <div style="font-size:10px; color:rgba(30,42,30,0.5); margin-top:1px;">Stay updated on trek dates, tips & announcements</div>
-          </div>
-        </div>
-        <div style="font-size:11.5px; color:rgba(30,42,30,0.6); line-height:1.6; margin-bottom:12px;">
-          After completing your payment, join the <strong>Tiny Trekking Parents WhatsApp Group</strong> to get trek reminders, packing tips, photos from previous treks, and connect with other trekking families in Pune!
-        </div>
-        <!-- REPLACE the href below with your actual WhatsApp group invite link -->
-        <a href="https://chat.whatsapp.com/YOUR-GROUP-INVITE-LINK"
-           target="_blank"
-           style="display:flex; align-items:center; justify-content:center; gap:8px;
-                  background:linear-gradient(135deg,#25d366,#128c5e);
-                  color:white; text-decoration:none;
-                  padding:11px 20px; border-radius:10px;
-                  font-family:'Fredoka One',cursive; font-size:13px; letter-spacing:1.5px;
-                  box-shadow:0 4px 14px rgba(37,211,102,0.3);
-                  transition:all 0.2s;"
-           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37,211,102,0.4)'"
-           onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 14px rgba(37,211,102,0.3)'">
-          💬 &nbsp; Join WhatsApp Group
-        </a>
-        <div style="font-size:9.5px; color:rgba(30,42,30,0.4); text-align:center; margin-top:8px; letter-spacing:0.5px;">
-          Join after payment is complete · Group for parents only
-        </div>
       </div>
     </div>
 
@@ -559,7 +537,16 @@ input::placeholder { color: rgba(30,42,30,0.3); font-size: 12px; }
 
 </div>
 
-
+<!-- GOOGLE FORM SETUP GUIDE -->
+<div class="gform-guide">
+  <div class="gform-title">📋 How to Set Up Your Google Form (5 min guide)</div>
+  <div class="gform-step"><div class="gform-num">1</div><div class="gform-text">Go to <strong>forms.google.com</strong> → click <strong>"Blank"</strong> to start a new form.</div></div>
+  <div class="gform-step"><div class="gform-num">2</div><div class="gform-text">Set title: <strong>"Tiny Trekking – Explorer Registration"</strong>. Add your tagline as description.</div></div>
+  <div class="gform-step"><div class="gform-num">3</div><div class="gform-text">Add fields: <strong>Child's Name</strong> (Short answer, Required) → <strong>Age</strong> → <strong>School Name</strong> → <strong>Parent Name</strong> → <strong>Phone Number</strong> → <strong>Email</strong> → <strong>Trek Selection</strong> (Multiple choice) → <strong>Medical Info</strong> → <strong>How did you hear us?</strong></div></div>
+  <div class="gform-step"><div class="gform-num">4</div><div class="gform-text">At the end, add a <strong>Description block</strong> (not a question) with your GPay UPI ID, amount, and instruction to send screenshot to WhatsApp.</div></div>
+  <div class="gform-step"><div class="gform-num">5</div><div class="gform-text">Go to <strong>Settings → Presentation → Confirmation message</strong> and paste your payment instructions there too.</div></div>
+  <div class="gform-step"><div class="gform-num">6</div><div class="gform-text">Click <strong>Send → Link icon → Copy link</strong>. Share this link on WhatsApp groups, Instagram bio, and school notice boards!</div></div>
+</div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Form submit
